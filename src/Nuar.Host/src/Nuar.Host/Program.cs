@@ -7,7 +7,6 @@ using Microsoft.Extensions.Hosting;
 
 namespace Nuar.Host
 {
-    [ExcludeFromCodeCoverage]
     public static class Program
     {
         public static Task Main(string[] args)
