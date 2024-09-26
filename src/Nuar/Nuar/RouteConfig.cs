@@ -1,3 +1,6 @@
+
+using Nuar.Configuration;
+
 namespace Nuar
 {
     public class RouteConfig

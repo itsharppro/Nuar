@@ -7,6 +7,6 @@ namespace Nuar
 {
     internal interface ISchemaValidator
     {
-        Task<IEnumerable<Error>> VaidateAsync(string payload, string schema);
+        Task<IEnumerable<Error>> ValidateAsync(string payload, string schema);
     }
 }
