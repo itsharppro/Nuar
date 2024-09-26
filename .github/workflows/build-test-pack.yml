@@ -1,0 +1,73 @@
+name: .NET CI Build, Test, and Publish
+
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+    branches:
+      - '**'
+
+jobs:
+  # Build and test libraries based on changes
+  build_test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 2  # Fetch two commits for proper diff
+
+    - name: Set up .NET SDK
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '9.x'
+
+    - name: Identify changed libraries
+      run: |
+        chmod +x ./scripts/identify-changed-libraries.sh
+        ./scripts/identify-changed-libraries.sh
+
+    - name: Build and test libraries
+      env:
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      run: |
+        chmod +x ./scripts/build-and-test.sh
+        ./scripts/build-and-test.sh
+
+    - name: Upload test results
+      uses: actions/upload-artifact@v3
+      with:
+        name: TestResults
+        path: src/*/TestResults/
+
+  # Publish packages after build and test pass
+  publish:
+    if: github.ref == 'refs/heads/main'
+    needs: build_test
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up .NET SDK
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '9.x'
+
+    - name: Decode and save certificate
+      run: |
+        echo "${{ secrets.CERTIFICATE_BASE64 }}" | base64 --decode > certificate.cer
+        echo "${{ secrets.PRIVATE_KEY_BASE64 }}" | base64 --decode > privatekey.pem
+
+    - name: Publish packages
+      env:
+        NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+        CERTIFICATE_PATH: certificate.cer
+        PRIVATE_KEY_PATH: privatekey.pem
+        CERTIFICATE_PASSWORD: ${{ secrets.CERTIFICATE_PASSWORD }}
+      run: |
+        chmod +x ./scripts/pack-all.sh
+        ./scripts/pack-all.sh
