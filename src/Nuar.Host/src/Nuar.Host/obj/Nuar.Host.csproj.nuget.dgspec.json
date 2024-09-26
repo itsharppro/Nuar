@@ -1,0 +1,78 @@
+{
+  "format": 1,
+  "restore": {
+    "/home/kaliuser/Documents/portfolio/commercial_apps/crmlxrms/nuar_framework/src/Nuar.Host/src/Nuar.Host/Nuar.Host.csproj": {}
+  },
+  "projects": {
+    "/home/kaliuser/Documents/portfolio/commercial_apps/crmlxrms/nuar_framework/src/Nuar.Host/src/Nuar.Host/Nuar.Host.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/kaliuser/Documents/portfolio/commercial_apps/crmlxrms/nuar_framework/src/Nuar.Host/src/Nuar.Host/Nuar.Host.csproj",
+        "projectName": "Nuar.Host",
+        "projectPath": "/home/kaliuser/Documents/portfolio/commercial_apps/crmlxrms/nuar_framework/src/Nuar.Host/src/Nuar.Host/Nuar.Host.csproj",
+        "packagesPath": "/home/kaliuser/.nuget/packages/",
+        "outputPath": "/home/kaliuser/Documents/portfolio/commercial_apps/crmlxrms/nuar_framework/src/Nuar.Host/src/Nuar.Host/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/kaliuser/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {},
+          "https://nuget.pkg.github.com/CRMLXRMS-Labs/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "targetAlias": "net9.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "all"
+        },
+        "SdkAnalysisLevel": "9.0.100"
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "dependencies": {
+            "NetEscapades.Configuration.Yaml": {
+              "target": "Package",
+              "version": "[3.1.0, )"
+            },
+            "Nuar": {
+              "target": "Package",
+              "version": "[1.0.5, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/home/kaliuser/dotnet/sdk/9.0.100-rc.1.24452.12/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
