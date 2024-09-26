@@ -1,0 +1,13 @@
+/home/kaliuser/Documents/portfolio/commercial_apps/crmlxrms/nuar_framework/src/Nuar.Host/src/Nuar.Host/bin/Debug/net9.0/Nuar.Host.deps.json
+/home/kaliuser/Documents/portfolio/commercial_apps/crmlxrms/nuar_framework/src/Nuar.Host/src/Nuar.Host/bin/Debug/net9.0/Nuar.Host.dll
+/home/kaliuser/Documents/portfolio/commercial_apps/crmlxrms/nuar_framework/src/Nuar.Host/src/Nuar.Host/bin/Debug/net9.0/Nuar.Host.pdb
+/home/kaliuser/Documents/portfolio/commercial_apps/crmlxrms/nuar_framework/src/Nuar.Host/src/Nuar.Host/obj/Debug/net9.0/Nuar.Host.csproj.AssemblyReference.cache
+/home/kaliuser/Documents/portfolio/commercial_apps/crmlxrms/nuar_framework/src/Nuar.Host/src/Nuar.Host/obj/Debug/net9.0/Nuar.Host.GeneratedMSBuildEditorConfig.editorconfig
+/home/kaliuser/Documents/portfolio/commercial_apps/crmlxrms/nuar_framework/src/Nuar.Host/src/Nuar.Host/obj/Debug/net9.0/Nuar.Host.AssemblyInfoInputs.cache
+/home/kaliuser/Documents/portfolio/commercial_apps/crmlxrms/nuar_framework/src/Nuar.Host/src/Nuar.Host/obj/Debug/net9.0/Nuar.Host.AssemblyInfo.cs
+/home/kaliuser/Documents/portfolio/commercial_apps/crmlxrms/nuar_framework/src/Nuar.Host/src/Nuar.Host/obj/Debug/net9.0/Nuar.Host.csproj.CoreCompileInputs.cache
+/home/kaliuser/Documents/portfolio/commercial_apps/crmlxrms/nuar_framework/src/Nuar.Host/src/Nuar.Host/obj/Debug/net9.0/Nuar.Host.sourcelink.json
+/home/kaliuser/Documents/portfolio/commercial_apps/crmlxrms/nuar_framework/src/Nuar.Host/src/Nuar.Host/obj/Debug/net9.0/Nuar.Host.dll
+/home/kaliuser/Documents/portfolio/commercial_apps/crmlxrms/nuar_framework/src/Nuar.Host/src/Nuar.Host/obj/Debug/net9.0/refint/Nuar.Host.dll
+/home/kaliuser/Documents/portfolio/commercial_apps/crmlxrms/nuar_framework/src/Nuar.Host/src/Nuar.Host/obj/Debug/net9.0/Nuar.Host.pdb
+/home/kaliuser/Documents/portfolio/commercial_apps/crmlxrms/nuar_framework/src/Nuar.Host/src/Nuar.Host/obj/Debug/net9.0/ref/Nuar.Host.dll
