@@ -17,7 +17,6 @@ echo "$divider"
 echo "Starting packaging process"
 echo "$divider"
 
-# Function to check if a directory has changes
 directory_contains_changes() {
   local dir="$1"
   [[ "$FORCE_PACK_ALL" == true ]] || [[ $(echo "$CHANGED_FILES" | grep -c "$dir") -gt 0 ]]
