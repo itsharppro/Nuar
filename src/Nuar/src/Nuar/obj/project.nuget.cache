@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "yJbYLSlDX0I=",
+  "dgSpecHash": "bIl2muL+XuA=",
   "success": true,
-  "projectFilePath": "/home/kaliuser/Documents/portfolio/commercial_apps/crmlxrms/nuar_framework/src/Nuar/Nuar/Nuar.csproj",
+  "projectFilePath": "/home/kaliuser/Documents/portfolio/commercial_apps/crmlxrms/nuar_framework/src/Nuar/src/Nuar/Nuar.csproj",
   "expectedPackageFiles": [
     "/home/kaliuser/.nuget/packages/microsoft.aspnetcore.authentication/2.2.0/microsoft.aspnetcore.authentication.2.2.0.nupkg.sha512",
     "/home/kaliuser/.nuget/packages/microsoft.aspnetcore.authentication.abstractions/2.2.0/microsoft.aspnetcore.authentication.abstractions.2.2.0.nupkg.sha512",
@@ -43,6 +43,8 @@
     "/home/kaliuser/.nuget/packages/microsoft.netcore.targets/1.1.0/microsoft.netcore.targets.1.1.0.nupkg.sha512",
     "/home/kaliuser/.nuget/packages/microsoft.win32.registry/4.5.0/microsoft.win32.registry.4.5.0.nupkg.sha512",
     "/home/kaliuser/.nuget/packages/namotion.reflection/3.1.1/namotion.reflection.3.1.1.nupkg.sha512",
+    "/home/kaliuser/.nuget/packages/netjson/1.4.4/netjson.1.4.4.nupkg.sha512",
+    "/home/kaliuser/.nuget/packages/netstandard.library/2.0.3/netstandard.library.2.0.3.nupkg.sha512",
     "/home/kaliuser/.nuget/packages/newtonsoft.json/13.0.3/newtonsoft.json.13.0.3.nupkg.sha512",
     "/home/kaliuser/.nuget/packages/njsonschema/11.0.2/njsonschema.11.0.2.nupkg.sha512",
     "/home/kaliuser/.nuget/packages/njsonschema.annotations/11.0.2/njsonschema.annotations.11.0.2.nupkg.sha512",

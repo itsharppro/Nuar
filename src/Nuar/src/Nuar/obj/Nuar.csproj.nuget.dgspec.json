@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/kaliuser/Documents/portfolio/commercial_apps/crmlxrms/nuar_framework/src/Nuar/Nuar/Nuar.csproj": {}
+    "/home/kaliuser/Documents/portfolio/commercial_apps/crmlxrms/nuar_framework/src/Nuar/src/Nuar/Nuar.csproj": {}
   },
   "projects": {
-    "/home/kaliuser/Documents/portfolio/commercial_apps/crmlxrms/nuar_framework/src/Nuar/Nuar/Nuar.csproj": {
+    "/home/kaliuser/Documents/portfolio/commercial_apps/crmlxrms/nuar_framework/src/Nuar/src/Nuar/Nuar.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/kaliuser/Documents/portfolio/commercial_apps/crmlxrms/nuar_framework/src/Nuar/Nuar/Nuar.csproj",
+        "projectUniqueName": "/home/kaliuser/Documents/portfolio/commercial_apps/crmlxrms/nuar_framework/src/Nuar/src/Nuar/Nuar.csproj",
         "projectName": "Nuar",
-        "projectPath": "/home/kaliuser/Documents/portfolio/commercial_apps/crmlxrms/nuar_framework/src/Nuar/Nuar/Nuar.csproj",
+        "projectPath": "/home/kaliuser/Documents/portfolio/commercial_apps/crmlxrms/nuar_framework/src/Nuar/src/Nuar/Nuar.csproj",
         "packagesPath": "/home/kaliuser/.nuget/packages/",
-        "outputPath": "/home/kaliuser/Documents/portfolio/commercial_apps/crmlxrms/nuar_framework/src/Nuar/Nuar/obj/",
+        "outputPath": "/home/kaliuser/Documents/portfolio/commercial_apps/crmlxrms/nuar_framework/src/Nuar/src/Nuar/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/kaliuser/.nuget/NuGet/NuGet.Config"
@@ -64,6 +64,10 @@
             "NJsonSchema.Yaml": {
               "target": "Package",
               "version": "[11.0.2, )"
+            },
+            "NetJSON": {
+              "target": "Package",
+              "version": "[1.4.4, )"
             },
             "System.Runtime.Loader": {
               "target": "Package",

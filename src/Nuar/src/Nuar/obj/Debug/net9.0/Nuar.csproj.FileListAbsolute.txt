@@ -11,3 +11,12 @@
 /home/kaliuser/Documents/portfolio/commercial_apps/crmlxrms/nuar_framework/src/Nuar/Nuar/obj/Debug/net9.0/refint/Nuar.dll
 /home/kaliuser/Documents/portfolio/commercial_apps/crmlxrms/nuar_framework/src/Nuar/Nuar/obj/Debug/net9.0/Nuar.pdb
 /home/kaliuser/Documents/portfolio/commercial_apps/crmlxrms/nuar_framework/src/Nuar/Nuar/obj/Debug/net9.0/ref/Nuar.dll
+/home/kaliuser/Documents/portfolio/commercial_apps/crmlxrms/nuar_framework/src/Nuar/src/Nuar/obj/Debug/net9.0/Nuar.csproj.AssemblyReference.cache
+/home/kaliuser/Documents/portfolio/commercial_apps/crmlxrms/nuar_framework/src/Nuar/src/Nuar/obj/Debug/net9.0/Nuar.GeneratedMSBuildEditorConfig.editorconfig
+/home/kaliuser/Documents/portfolio/commercial_apps/crmlxrms/nuar_framework/src/Nuar/src/Nuar/obj/Debug/net9.0/Nuar.AssemblyInfoInputs.cache
+/home/kaliuser/Documents/portfolio/commercial_apps/crmlxrms/nuar_framework/src/Nuar/src/Nuar/obj/Debug/net9.0/Nuar.AssemblyInfo.cs
+/home/kaliuser/Documents/portfolio/commercial_apps/crmlxrms/nuar_framework/src/Nuar/src/Nuar/obj/Debug/net9.0/Nuar.csproj.CoreCompileInputs.cache
+/home/kaliuser/Documents/portfolio/commercial_apps/crmlxrms/nuar_framework/src/Nuar/src/Nuar/obj/Debug/net9.0/Nuar.sourcelink.json
+/home/kaliuser/Documents/portfolio/commercial_apps/crmlxrms/nuar_framework/src/Nuar/src/Nuar/obj/Debug/net9.0/Nuar.dll
+/home/kaliuser/Documents/portfolio/commercial_apps/crmlxrms/nuar_framework/src/Nuar/src/Nuar/obj/Debug/net9.0/refint/Nuar.dll
+/home/kaliuser/Documents/portfolio/commercial_apps/crmlxrms/nuar_framework/src/Nuar/src/Nuar/obj/Debug/net9.0/Nuar.pdb
