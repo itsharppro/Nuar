@@ -1,0 +1,35 @@
+rabbitmq:
+  connectionName: "my-app-connection"
+  hostnames:
+    - "rabbitmq1.local"
+    - "rabbitmq2.local"
+  port: 5672
+  virtualHost: "/"
+  username: "guest"
+  password: "guest"
+  requestedConnectionTimeout: 30000
+  socketReadTimeout: 30000
+  socketWriteTimeout: 30000
+  requestedChannelMax: 2048
+  requestedFrameMax: 131072
+  requestedHeartbeat: 60
+  useBackgroundThreadsForIO: false
+  exchange:
+    declareExchange: true
+    durable: true
+    autoDelete: false
+    type: "topic"
+  ssl:
+    enabled: true
+    serverName: "rabbitmq1.local"
+    certificatePath: "/path/to/certificate.pem"
+  messageContext:
+    enabled: true
+    header: "My-Message-Context"
+  logger:
+    enabled: true
+    level: "Debug"
+  spanContextHeader: "X-Span-Context"
+  headers:
+    custom-header-1: "value1"
+    custom-header-2: "value2"

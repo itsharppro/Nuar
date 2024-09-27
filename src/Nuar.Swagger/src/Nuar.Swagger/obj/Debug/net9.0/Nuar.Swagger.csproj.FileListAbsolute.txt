@@ -1,0 +1,13 @@
+/home/kaliuser/Documents/portfolio/commercial_apps/crmlxrms/nuar_framework/src/Nuar.Swagger/src/Nuar.Swagger/bin/Debug/net9.0/Nuar.Swagger.deps.json
+/home/kaliuser/Documents/portfolio/commercial_apps/crmlxrms/nuar_framework/src/Nuar.Swagger/src/Nuar.Swagger/bin/Debug/net9.0/Nuar.Swagger.dll
+/home/kaliuser/Documents/portfolio/commercial_apps/crmlxrms/nuar_framework/src/Nuar.Swagger/src/Nuar.Swagger/bin/Debug/net9.0/Nuar.Swagger.pdb
+/home/kaliuser/Documents/portfolio/commercial_apps/crmlxrms/nuar_framework/src/Nuar.Swagger/src/Nuar.Swagger/obj/Debug/net9.0/Nuar.Swagger.csproj.AssemblyReference.cache
+/home/kaliuser/Documents/portfolio/commercial_apps/crmlxrms/nuar_framework/src/Nuar.Swagger/src/Nuar.Swagger/obj/Debug/net9.0/Nuar.Swagger.GeneratedMSBuildEditorConfig.editorconfig
+/home/kaliuser/Documents/portfolio/commercial_apps/crmlxrms/nuar_framework/src/Nuar.Swagger/src/Nuar.Swagger/obj/Debug/net9.0/Nuar.Swagger.AssemblyInfoInputs.cache
+/home/kaliuser/Documents/portfolio/commercial_apps/crmlxrms/nuar_framework/src/Nuar.Swagger/src/Nuar.Swagger/obj/Debug/net9.0/Nuar.Swagger.AssemblyInfo.cs
+/home/kaliuser/Documents/portfolio/commercial_apps/crmlxrms/nuar_framework/src/Nuar.Swagger/src/Nuar.Swagger/obj/Debug/net9.0/Nuar.Swagger.csproj.CoreCompileInputs.cache
+/home/kaliuser/Documents/portfolio/commercial_apps/crmlxrms/nuar_framework/src/Nuar.Swagger/src/Nuar.Swagger/obj/Debug/net9.0/Nuar.Swagger.sourcelink.json
+/home/kaliuser/Documents/portfolio/commercial_apps/crmlxrms/nuar_framework/src/Nuar.Swagger/src/Nuar.Swagger/obj/Debug/net9.0/Nuar.Swagger.dll
+/home/kaliuser/Documents/portfolio/commercial_apps/crmlxrms/nuar_framework/src/Nuar.Swagger/src/Nuar.Swagger/obj/Debug/net9.0/refint/Nuar.Swagger.dll
+/home/kaliuser/Documents/portfolio/commercial_apps/crmlxrms/nuar_framework/src/Nuar.Swagger/src/Nuar.Swagger/obj/Debug/net9.0/Nuar.Swagger.pdb
+/home/kaliuser/Documents/portfolio/commercial_apps/crmlxrms/nuar_framework/src/Nuar.Swagger/src/Nuar.Swagger/obj/Debug/net9.0/ref/Nuar.Swagger.dll

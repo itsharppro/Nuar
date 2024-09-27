@@ -1,0 +1,26 @@
+cors:
+  allowCredentials: true
+  allowedOrigins:
+    - '*'
+  deniedOrigins:
+    - 'http://disallowed-origin.com'
+  allowedMethods:
+    - get
+    - post
+    - delete
+  allowedHeaders:
+    - '*'
+  exposedHeaders:
+    - Request-ID
+    - Resource-ID
+    - Trace-ID
+    - Total-Count
+  maxAge: 3600
+  loggingEnabled: true
+  environment:
+    development:
+      allowedOrigins:
+        - 'http://localhost:3000'
+    production:
+      allowedOrigins:
+        - 'https://my-production-domain.com'

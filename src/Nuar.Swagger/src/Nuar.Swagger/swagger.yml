@@ -1,0 +1,7 @@
+swagger:
+  name: Nuar API
+  title: Nuar API Documentation
+  version: v1
+  routePrefix: swagger
+  includeSecurity: true
+  reDocEnabled: false

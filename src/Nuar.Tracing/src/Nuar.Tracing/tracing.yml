@@ -1,0 +1,12 @@
+tracing:
+  useEmptyTracer: false
+  serviceName: "my-nuar-service"
+  udpHost: "localhost"
+  udpPort: 6831
+  maxPacketSize: 65000
+  sampler: "const"
+  maxTracesPerSecond: 10
+  samplingRate: 0.5
+  excludePaths:
+    - "/health"
+    - "/metrics"
