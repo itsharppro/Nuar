@@ -22,7 +22,6 @@ directory_contains_changes() {
   [[ "$FORCE_PACK_ALL" == true ]] || [[ $(echo "$CHANGED_FILES" | grep -c "$dir") -gt 0 ]]
 }
 
-# Process each package directory
 for dir in "$base_dir"/*/
 do
   package_name=${dir##*/}
