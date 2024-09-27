@@ -31,12 +31,12 @@ namespace Nuar.RabbitMq
                     VirtualHost = options.VirtualHost,
                     UserName = options.Username,
                     Password = options.Password,
-                    RequestedConnectionTimeout = options.RequestedConnectionTimeout,
-                    SocketReadTimeout = options.SocketReadTimeout,
-                    SocketWriteTimeout = options.SocketWriteTimeout,
+                   RequestedConnectionTimeout = TimeSpan.FromMilliseconds(options.RequestedConnectionTimeout),  // Convert int to TimeSpan
+                    SocketReadTimeout = TimeSpan.FromMilliseconds(options.SocketReadTimeout),  // Convert int to TimeSpan
+                    SocketWriteTimeout = TimeSpan.FromMilliseconds(options.SocketWriteTimeout),  // Convert int to TimeSpan
                     RequestedChannelMax = options.RequestedChannelMax,
                     RequestedFrameMax = options.RequestedFrameMax,
-                    RequestedHeartbeat = options.RequestedHeartbeat,
+                    RequestedHeartbeat = TimeSpan.FromSeconds(options.RequestedHeartbeat),  // Convert ushort to TimeSpan in seconds
                     UseBackgroundThreadsForIO = options.UseBackgroundThreadsForIO,
                     Ssl = options.Ssl is null
                         ? new SslOption()
