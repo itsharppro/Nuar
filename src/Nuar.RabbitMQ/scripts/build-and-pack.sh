@@ -12,7 +12,7 @@ PACKAGE_VERSION="1.0.$GITHUB_RUN_NUMBER"
 echo "Building and packing the Nuar.RabbitMQ library..."
 dotnet pack -c release /p:PackageVersion=$PACKAGE_VERSION --no-restore -o ./nupkg
 
-PACKAGE_PATH="./nupkg/Nuar.$PACKAGE_VERSION.nupkg"
+PACKAGE_PATH="./nupkg/Nuar.RabbitMQ.$PACKAGE_VERSION.nupkg"
 
 if [ -f "$PACKAGE_PATH" ]; then
   echo "Checking if the package is already signed..."
