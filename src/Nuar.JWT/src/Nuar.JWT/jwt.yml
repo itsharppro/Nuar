@@ -1,0 +1,31 @@
+jwt:
+  issuerSigningKey: eiquief5phee9pazo0Faegaez9gohThailiur5woy2befiech1oarai4aiLi6ahVecah3ie9Aiz6Peij
+  authority: "https://auth.yourdomain.com"  
+  audience: "your-audience"                 
+  challenge: "Bearer"
+  metadataAddress: "https://auth.yourdomain.com/.well-known/openid-configuration"
+  saveToken: true
+  saveSigninToken: false
+  requireAudience: true
+  requireHttpsMetadata: true
+  requireExpirationTime: true
+  requireSignedTokens: true
+  validAudience: "your-audience"
+  validAudiences:
+    - "audience-1"
+    - "audience-2"
+  validIssuer: "ntrada"
+  validIssuers:
+    - "issuer-1"
+    - "issuer-2"
+  validateActor: false
+  validateAudience: false
+  validateIssuer: true
+  validateLifetime: true
+  validateTokenReplay: false
+  validateIssuerSigningKey: true
+  refreshOnIssuerKeyNotFound: true
+  includeErrorDetails: true
+  authenticationType: "Bearer"
+  nameClaimType: "name"
+  roleClaimType: "role"
