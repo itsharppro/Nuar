@@ -9,6 +9,11 @@
   <ItemGroup>
     <PackageReference Include="NetEscapades.Configuration.Yaml" Version="3.1.0" />
     <PackageReference Include="Nuar" Version="1.0.5" />
+    <PackageReference Include="Nuar.Cors" Version="1.0.19" />
+    <PackageReference Include="Nuar.CustomErrors" Version="1.0.19" />
+    <PackageReference Include="Nuar.JWT" Version="1.0.19" />
+    <PackageReference Include="Nuar.RabbitMQ" Version="1.0.19" />
+    <PackageReference Include="Nuar.Tracing" Version="1.0.19" />
   </ItemGroup>
 
 </Project>

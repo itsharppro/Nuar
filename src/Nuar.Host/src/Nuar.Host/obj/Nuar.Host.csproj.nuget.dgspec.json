@@ -52,6 +52,26 @@
             "Nuar": {
               "target": "Package",
               "version": "[1.0.5, )"
+            },
+            "Nuar.Cors": {
+              "target": "Package",
+              "version": "[1.0.19, )"
+            },
+            "Nuar.CustomErrors": {
+              "target": "Package",
+              "version": "[1.0.19, )"
+            },
+            "Nuar.JWT": {
+              "target": "Package",
+              "version": "[1.0.19, )"
+            },
+            "Nuar.RabbitMQ": {
+              "target": "Package",
+              "version": "[1.0.19, )"
+            },
+            "Nuar.Tracing": {
+              "target": "Package",
+              "version": "[1.0.19, )"
             }
           },
           "imports": [
