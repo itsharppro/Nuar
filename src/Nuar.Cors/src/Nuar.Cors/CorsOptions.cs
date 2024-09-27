@@ -1,12 +1,8 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Nuar.Cors.Core;
 
-namespace Nuar.Cors
+namespace Nuar.Cors.Core
 {
-    public class CorsOptions
+    public class CorsOptions : IOptions
     {
         public bool AllowCredentials { get; set; }
         public IEnumerable<string> AllowedOrigins { get; set; }
@@ -15,7 +11,7 @@ namespace Nuar.Cors
         public IEnumerable<string> AllowedHeaders { get; set; }
         public IEnumerable<string> ExposedHeaders { get; set; }
         public int? MaxAge { get; set; }
-        public bool LoggingEnabled { get; set; }  
+        public bool LoggingEnabled { get; set; }
         public Dictionary<string, CorsEnvironment> Environment { get; set; }
     }
 }

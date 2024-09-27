@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Nuar" Version="1.0.5" />
+  </ItemGroup>
+
 </Project>

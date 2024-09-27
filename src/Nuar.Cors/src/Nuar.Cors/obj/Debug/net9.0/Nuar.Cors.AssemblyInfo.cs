@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Nuar.Cors")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ffd419cb94da23dfe0244e2eeb5ed393e94d8d36")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4f591d7d3d29b75a3f95f6e24b0a0ebae4bb1338")]
 [assembly: System.Reflection.AssemblyProductAttribute("Nuar.Cors")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Nuar.Cors")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
