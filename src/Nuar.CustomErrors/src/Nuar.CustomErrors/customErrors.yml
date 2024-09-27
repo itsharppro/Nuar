@@ -1,0 +1,16 @@
+customErrors:
+  includeExceptionMessage: true
+  includeDetailedErrors: false
+  customErrorPages:
+    404: "/errors/not-found"
+    500: "/errors/internal-server-error"
+  loggingLevel: "Error"
+  enableErrorTracking: true
+  enableRetryPolicy: false
+  environment:
+    development:
+      includeExceptionMessage: true
+      includeDetailedErrors: true
+    production:
+      includeExceptionMessage: false
+      includeDetailedErrors: false
