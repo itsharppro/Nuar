@@ -1018,7 +1018,7 @@
           "lib/netstandard2.0/NJsonSchema.Yaml.dll": {}
         }
       },
-      "Nuar/1.0.5": {
+      "Nuar/1.0.19": {
         "type": "package",
         "dependencies": {
           "Microsoft.AspNetCore.Authentication": "2.2.0",
@@ -3278,15 +3278,15 @@
         "njsonschema.yaml.nuspec"
       ]
     },
-    "Nuar/1.0.5": {
-      "sha512": "SzP+T2iv6OOT1I6BqgBQatAF/4VXzxc05JCyRPgqXj8MU2dorJeZSpkGNxmMZnECxs+uZdsmgh0Ai+q+8WIQYg==",
+    "Nuar/1.0.19": {
+      "sha512": "9mcK4hiUGrns7zmQi//Mde9K0wI5SeUm3pQgm5Pd1tS452AQGWX8Yan/VP6l2rctGs63E9AbHqiNLlma9Pa1Ww==",
       "type": "package",
-      "path": "nuar/1.0.5",
+      "path": "nuar/1.0.19",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "lib/net9.0/Nuar.dll",
-        "nuar.1.0.5.nupkg.sha512",
+        "nuar.1.0.19.nupkg.sha512",
         "nuar.nuspec"
       ]
     },
@@ -5553,7 +5553,7 @@
   "projectFileDependencyGroups": {
     "net9.0": [
       "NetEscapades.Configuration.Yaml >= 3.1.0",
-      "Nuar >= 1.0.5",
+      "Nuar >= 1.0.19",
       "Nuar.Cors >= 1.0.19",
       "Nuar.CustomErrors >= 1.0.19",
       "Nuar.JWT >= 1.0.19",
@@ -5611,7 +5611,7 @@
           },
           "Nuar": {
             "target": "Package",
-            "version": "[1.0.5, )"
+            "version": "[1.0.19, )"
           },
           "Nuar.Cors": {
             "target": "Package",
@@ -5671,15 +5671,6 @@
       "warningLevel": 1,
       "message": "Package 'System.Text.Encodings.Web' 4.5.0 has a known critical severity vulnerability, https://github.com/advisories/GHSA-ghhp-997w-qr28",
       "libraryId": "System.Text.Encodings.Web",
-      "targetGraphs": [
-        "net9.0"
-      ]
-    },
-    {
-      "code": "NU1605",
-      "level": "Error",
-      "message": "Warning As Error: Detected package downgrade: Nuar from 1.0.8 to 1.0.5. Reference the package directly from the project to select a different version. \n Nuar.Host -> Nuar.RabbitMQ 1.0.19 -> Nuar (>= 1.0.8) \n Nuar.Host -> Nuar (>= 1.0.5)",
-      "libraryId": "Nuar",
       "targetGraphs": [
         "net9.0"
       ]

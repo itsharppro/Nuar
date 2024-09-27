@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "dgSpecHash": "7q41qyuJ8EU=",
-  "success": false,
+  "dgSpecHash": "wVtlKhGWjes=",
+  "success": true,
   "projectFilePath": "/home/kaliuser/Documents/portfolio/commercial_apps/crmlxrms/nuar_framework/src/Nuar.Host/src/Nuar.Host/Nuar.Host.csproj",
   "expectedPackageFiles": [
     "/home/kaliuser/.nuget/packages/microsoft.aspnetcore.authentication/2.2.0/microsoft.aspnetcore.authentication.2.2.0.nupkg.sha512",
@@ -61,7 +61,7 @@
     "/home/kaliuser/.nuget/packages/njsonschema/11.0.2/njsonschema.11.0.2.nupkg.sha512",
     "/home/kaliuser/.nuget/packages/njsonschema.annotations/11.0.2/njsonschema.annotations.11.0.2.nupkg.sha512",
     "/home/kaliuser/.nuget/packages/njsonschema.yaml/11.0.2/njsonschema.yaml.11.0.2.nupkg.sha512",
-    "/home/kaliuser/.nuget/packages/nuar/1.0.5/nuar.1.0.5.nupkg.sha512",
+    "/home/kaliuser/.nuget/packages/nuar/1.0.19/nuar.1.0.19.nupkg.sha512",
     "/home/kaliuser/.nuget/packages/nuar.cors/1.0.19/nuar.cors.1.0.19.nupkg.sha512",
     "/home/kaliuser/.nuget/packages/nuar.customerrors/1.0.19/nuar.customerrors.1.0.19.nupkg.sha512",
     "/home/kaliuser/.nuget/packages/nuar.jwt/1.0.19/nuar.jwt.1.0.19.nupkg.sha512",
@@ -133,15 +133,6 @@
       "warningLevel": 1,
       "message": "Package 'System.Text.Encodings.Web' 4.5.0 has a known critical severity vulnerability, https://github.com/advisories/GHSA-ghhp-997w-qr28",
       "libraryId": "System.Text.Encodings.Web",
-      "targetGraphs": [
-        "net9.0"
-      ]
-    },
-    {
-      "code": "NU1605",
-      "level": "Error",
-      "message": "Warning As Error: Detected package downgrade: Nuar from 1.0.8 to 1.0.5. Reference the package directly from the project to select a different version. \n Nuar.Host -> Nuar.RabbitMQ 1.0.19 -> Nuar (>= 1.0.8) \n Nuar.Host -> Nuar (>= 1.0.5)",
-      "libraryId": "Nuar",
       "targetGraphs": [
         "net9.0"
       ]
