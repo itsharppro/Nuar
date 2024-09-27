@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Nuar.CustomErrors")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7b0bd089def61839eb43d354f8c8172a4820449c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bec5bd1a203c365541f441208a14ebb43abd8de0")]
 [assembly: System.Reflection.AssemblyProductAttribute("Nuar.CustomErrors")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Nuar.CustomErrors")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
