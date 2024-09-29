@@ -1,14 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
     <!-- <PackageReference Include="Jaeger" Version="1.0.3" /> -->
-    <PackageReference Include="Nuar" Version="1.0.8" />
+    <PackageReference Include="Nuar" Version="*" />
     <PackageReference Include="OpenTelemetry" Version="1.9.0" />
     <PackageReference Include="OpenTelemetry.Exporter.Jaeger" Version="1.5.1" />
     <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.9.0" />

@@ -1,19 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="NetEscapades.Configuration.Yaml" Version="3.1.0" />
-    <PackageReference Include="Nuar" Version="1.0.19" />
-    <PackageReference Include="Nuar.Cors" Version="1.0.19" />
-    <PackageReference Include="Nuar.CustomErrors" Version="1.0.19" />
-    <PackageReference Include="Nuar.JWT" Version="1.0.19" />
-    <PackageReference Include="Nuar.RabbitMQ" Version="1.0.19" />
-    <PackageReference Include="Nuar.Tracing" Version="1.0.19" />
+    <PackageReference Include="NetEscapades.Configuration.Yaml" Version="*" />
+    <PackageReference Include="Nuar" Version="*" />
+    <PackageReference Include="Nuar.Cors" Version="*" />
+    <PackageReference Include="Nuar.CustomErrors" Version="*" />
+    <PackageReference Include="Nuar.JWT" Version="*" />
+    <PackageReference Include="Nuar.RabbitMQ" Version="*" />
+    <PackageReference Include="Nuar.Tracing" Version="*" />
   </ItemGroup>
 
 </Project>
