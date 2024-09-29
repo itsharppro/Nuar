@@ -7,7 +7,6 @@
   [![NuGet](https://img.shields.io/nuget/v/Nuar.svg)](https://www.nuget.org/packages/Nuar)
   ![.NET 9.0](https://img.shields.io/badge/.NET-9.0-blueviolet?logo=dotnet)
   [![Build Status](https://github.com/itsharppro/Nuar/actions/workflows/build-test-pack.yml/badge.svg)](https://github.com/yourusername/paralax-framework/actions)
-  [![License](https://img.shields.io/github/license/ITSharpPro/Nuar)](https://github.com/ITSharpPro/Nuar/blob/dev/LICENSE)
   
 </div>
 
