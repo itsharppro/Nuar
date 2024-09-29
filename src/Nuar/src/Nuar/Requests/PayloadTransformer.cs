@@ -27,17 +27,26 @@ namespace Nuar.Requests
 
         public bool HasTransformations(string resourceId, Route route)
         {
+            // Check if resourceId is not null or empty
             if (!string.IsNullOrWhiteSpace(resourceId))
             {
                 return true;
             }
 
-            if (route.Bind.Any())
+            // Check if 'Bind' collection in the route is not null or has any elements
+            if (route.Bind != null && route.Bind.Any())
             {
                 return true;
             }
 
-            return route.Transform.Any() || _payloads.ContainsKey(GetPayloadKey(route));
+            // Check if 'Transform' collection in the route is not null or has any elements
+            if (route.Transform != null && route.Transform.Any())
+            {
+                return true;
+            }
+
+            // Check if payloads dictionary contains the key for the route
+            return _payloads.ContainsKey(GetPayloadKey(route));
         }
 
         public PayloadSchema Transform(string payload, string resourceId, Route route, HttpRequest request, RouteData data)
