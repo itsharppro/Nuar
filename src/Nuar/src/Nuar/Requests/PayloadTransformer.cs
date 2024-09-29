@@ -3,7 +3,7 @@ using System.Dynamic;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
-using Newtonsoft.Json;
+using NetJSON;
 using Nuar.Options;
 using Route = Nuar.Configuration.Route;
 
@@ -27,25 +27,21 @@ namespace Nuar.Requests
 
         public bool HasTransformations(string resourceId, Route route)
         {
-            // Check if resourceId is not null or empty
             if (!string.IsNullOrWhiteSpace(resourceId))
             {
                 return true;
             }
 
-            // Check if 'Bind' collection in the route is not null or has any elements
             if (route.Bind != null && route.Bind.Any())
             {
                 return true;
             }
 
-            // Check if 'Transform' collection in the route is not null or has any elements
             if (route.Transform != null && route.Transform.Any())
             {
                 return true;
             }
 
-            // Check if payloads dictionary contains the key for the route
             return _payloads.ContainsKey(GetPayloadKey(route));
         }
 
@@ -106,11 +102,11 @@ namespace Nuar.Requests
         private object GetObjectFromPayload(Route route, string content)
         {
             var payloadValue = _payloads[GetPayloadKey(route)].Payload;
-            var request = JsonConvert.DeserializeObject(content, payloadValue.GetType());
+            var request = NetJSON.NetJSON.Deserialize(payloadValue.GetType(), content);
             var payloadValues = (IDictionary<string, object>)payloadValue;
             var requestValues = (IDictionary<string, object>)request;
 
-            foreach (var key in requestValues.Keys)
+            foreach (var key in requestValues.Keys.ToList()) // Avoid modifying the collection while enumerating
             {
                 if (!payloadValues.ContainsKey(key))
                 {
@@ -123,10 +119,7 @@ namespace Nuar.Requests
 
         private static object GetObject(string content)
         {
-            dynamic payload = new ExpandoObject();
-            JsonConvert.PopulateObject(content, payload);
-
-            return JsonConvert.DeserializeObject(content, payload.GetType());
+            return NetJSON.NetJSON.Deserialize<ExpandoObject>(content);
         }
 
         private string GetPayloadKey(Route route) => _payloadManager.GetKey(route.Method, route.Upstream);
