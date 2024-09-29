@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCopyrightAttribute("ITSharpPro © ")]
 [assembly: System.Reflection.AssemblyDescriptionAttribute("Nuar - A framework for building API gateways in a microservices architecture")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+66abf9c9a19dbffcc8e2b5de611f144fecea06da")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+837a033c257f83360d53d4f84b8680351db2bc22")]
 [assembly: System.Reflection.AssemblyProductAttribute("Nuar")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Nuar")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
