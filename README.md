@@ -1,6 +1,4 @@
-Here’s an updated professional README for the **Nuar Framework** with the logo, badges from [Shields.io](https://shields.io/), and the logo banner from the provided C# code.
 
-```md
 # ![Nuar Logo](./docs/logo/Nuar_128.png) Nuar API Gateway Framework
 
 [![NuGet](https://img.shields.io/nuget/v/Nuar.svg)](https://www.nuget.org/packages/Nuar)
@@ -169,4 +167,3 @@ For more information, visit [ITSharpPro](https://itsharppro.com) or check the [o
 ---
 
 ![Nuar Logo](./docs/logo/Nuar_128.png)
-```
