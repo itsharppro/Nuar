@@ -35,7 +35,7 @@
       <PackagePath>\</PackagePath>
     </None>
 
-    <PackageReference Include="Nuar" Version="1.0.8" />
+    <PackageReference Include="Nuar" Version="*" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.8.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.ReDoc" Version="6.8.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.8.0" />
