@@ -1,12 +1,40 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <Description>Nuar.Tracing - Distributed tracing support for the Nuar API gateway framework</Description>
+    <Authors>ITSharpPro</Authors>
+    <Company>ITSharpPro</Company>
+    <PackageProjectUrl>https://itsharppro.com</PackageProjectUrl>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/ITSharpPro/Nuar</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>Tracing; OpenTelemetry; API gateway; microservices; framework; ITSharpPro</PackageTags>
+    <PackageReleaseNotes>
+      Initial release of the Nuar.Tracing extension for integrating distributed tracing with OpenTelemetry in the Nuar API gateway framework.
+    </PackageReleaseNotes>
+    <Copyright>ITSharpPro © $(Year)</Copyright>
     <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+
+    <PackageId>Nuar.Tracing</PackageId>
+    <PackageIcon>Nuar_128.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <IsPackable>true</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="../../../../README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+
+    <None Include="../../../../docs/logo/Nuar_128.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    
     <!-- <PackageReference Include="Jaeger" Version="1.0.3" /> -->
     <PackageReference Include="Nuar" Version="*" />
     <PackageReference Include="OpenTelemetry" Version="1.9.0" />

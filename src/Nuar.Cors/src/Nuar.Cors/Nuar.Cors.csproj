@@ -18,7 +18,7 @@
     <Nullable>enable</Nullable>
     <LangVersion>latest</LangVersion>
 
-    <PackageId>Nuar</PackageId>
+    <PackageId>Nuar.Cors</PackageId>
     <PackageIcon>Nuar_128.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <IsPackable>true</IsPackable>
