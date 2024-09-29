@@ -27,21 +27,25 @@ namespace Nuar.Requests
 
         public bool HasTransformations(string resourceId, Route route)
         {
+            // Check if the resource ID exists
             if (!string.IsNullOrWhiteSpace(resourceId))
             {
                 return true;
             }
 
+            // Check if route binds exist
             if (route.Bind != null && route.Bind.Any())
             {
                 return true;
             }
 
+            // Check if there are any transformations
             if (route.Transform != null && route.Transform.Any())
             {
                 return true;
             }
 
+            // Check if the payloads dictionary contains a key for the route
             return _payloads.ContainsKey(GetPayloadKey(route));
         }
 
@@ -53,6 +57,8 @@ namespace Nuar.Requests
                 : GetObject(payload);
 
             var commandValues = (IDictionary<string, object>)command;
+
+            // If resourceId is not null or empty, set it in the commandValues
             if (!string.IsNullOrWhiteSpace(resourceId))
             {
                 var resourceIdProperty = string.IsNullOrWhiteSpace(route.ResourceId?.Property)
@@ -67,6 +73,7 @@ namespace Nuar.Requests
                 commandValues[resourceIdProperty] = resourceId;
             }
 
+            // Process route bindings
             foreach (var setter in route.Bind ?? Enumerable.Empty<string>())
             {
                 var keyAndValue = setter.Split(':');
@@ -74,26 +81,28 @@ namespace Nuar.Requests
                 var value = keyAndValue[1];
                 commandValues[key] = _valueProvider.GetValue(value, request, data);
                 var routeValue = value.Length > 2 ? value.Substring(1, value.Length - 2) : string.Empty;
+
                 if (data.Values.TryGetValue(routeValue, out var dataValue))
                 {
                     commandValues[key] = dataValue;
                 }
             }
 
+            // Process transformations
             foreach (var transformation in route.Transform ?? Enumerable.Empty<string>())
             {
                 var beforeAndAfter = transformation.Split(':');
                 var before = beforeAndAfter[0];
                 var after = beforeAndAfter[1];
-                if (!commandValues.TryGetValue(before, out var value))
-                {
-                    continue;
-                }
 
-                commandValues.Remove(before);
-                commandValues.Add(after, value);
+                if (commandValues.TryGetValue(before, out var value))
+                {
+                    commandValues.Remove(before);
+                    commandValues.Add(after, value);
+                }
             }
 
+            // Return the processed payload schema
             _payloads.TryGetValue(payloadKey, out var payloadSchema);
 
             return new PayloadSchema(command as ExpandoObject, payloadSchema?.Schema);
@@ -103,9 +112,11 @@ namespace Nuar.Requests
         {
             var payloadValue = _payloads[GetPayloadKey(route)].Payload;
             var request = NetJSON.NetJSON.Deserialize(payloadValue.GetType(), content);
+
             var payloadValues = (IDictionary<string, object>)payloadValue;
             var requestValues = (IDictionary<string, object>)request;
 
+            // Ensure the payload aligns with the expected structure
             foreach (var key in requestValues.Keys.ToList()) // Avoid modifying the collection while enumerating
             {
                 if (!payloadValues.ContainsKey(key))
@@ -119,9 +130,14 @@ namespace Nuar.Requests
 
         private static object GetObject(string content)
         {
+            // Deserialize directly to an ExpandoObject using NetJSON
             return NetJSON.NetJSON.Deserialize<ExpandoObject>(content);
         }
 
-        private string GetPayloadKey(Route route) => _payloadManager.GetKey(route.Method, route.Upstream);
+        private string GetPayloadKey(Route route)
+        {
+            // Generate the key based on route method and upstream path
+            return _payloadManager.GetKey(route.Method, route.Upstream);
+        }
     }
 }
