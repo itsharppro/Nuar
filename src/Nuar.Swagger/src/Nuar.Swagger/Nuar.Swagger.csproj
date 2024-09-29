@@ -1,13 +1,42 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
+    <Description>Nuar.Swagger - Swagger integration for the Nuar API gateway framework</Description>
+    <Authors>ITSharpPro</Authors>
+    <Company>ITSharpPro</Company>
+    <PackageProjectUrl>https://itsharppro.com</PackageProjectUrl>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/ITSharpPro/Nuar</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>Swagger; OpenAPI; API gateway; microservices; framework; ITSharpPro</PackageTags>
+    <PackageReleaseNotes>
+      Initial release of the Nuar.Swagger extension for integrating Swagger-based API documentation in the Nuar API gateway framework.
+    </PackageReleaseNotes>
+    <Copyright>ITSharpPro © $(Year)</Copyright>
+    <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+
+    <PackageId>Nuar.Swagger</PackageId>
+    <PackageIcon>Nuar_128.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <IsPackable>true</IsPackable>
+    <OpenApiGenerateDocumentsOnBuild>false</OpenApiGenerateDocumentsOnBuild>  <!-- For .NET 8.0 -->
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Nuar" Version="1.0.8" />
+    <None Include="../../../../README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+
+    <None Include="../../../../docs/logo/Nuar_128.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+
+    <PackageReference Include="Nuar" Version="*" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.8.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.ReDoc" Version="6.8.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.8.0" />

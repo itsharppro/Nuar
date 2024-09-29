@@ -1,14 +1,48 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
+    <Description>Nuar.JWT - JWT authentication extension for the Nuar API gateway framework</Description>
+    <Authors>ITSharpPro</Authors>
+    <Company>ITSharpPro</Company>
+    <PackageProjectUrl>https://itsharppro.com</PackageProjectUrl>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/ITSharpPro/Nuar</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>JWT; authentication; API gateway; microservices; framework; ITSharpPro</PackageTags>
+    <PackageReleaseNotes>
+      Initial release of the Nuar.JWT extension for JWT-based authentication in the Nuar API gateway framework.
+    </PackageReleaseNotes>
+    <Copyright>ITSharpPro © $(Year)</Copyright>
+    <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+
+    <PackageId>Nuar.JWT</PackageId>
+    <PackageIcon>Nuar_128.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <IsPackable>true</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="../../../../README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+
+    <None Include="../../../../docs/logo/Nuar_128.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.8" />
-    <PackageReference Include="Nuar" Version="1.0.5" />
+    <PackageReference Include="Nuar" Version="*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>Nuar.JWT.Tests</_Parameter1>
+    </AssemblyAttribute>
   </ItemGroup>
 
 </Project>
