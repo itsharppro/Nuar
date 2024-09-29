@@ -1,63 +1,87 @@
-using System;
-using System.Linq;
+using Jaeger;
+using Jaeger.Reporters;
+using Jaeger.Samplers;
+using Jaeger.Senders;
+using Jaeger.Senders.Thrift;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using OpenTelemetry.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using OpenTelemetry;
-using OpenTelemetry.Resources;
-using OpenTelemetry.Trace;
-using OpenTelemetry.Exporter;
-
 using Nuar.Tracing;
+using OpenTracing;
+using OpenTracing.Contrib.NetCore.Configuration;
+using OpenTracing.Util;
 
 namespace Nuar.Extensions.Tracing
 {
     public class TracingExtension : IExtension
     {
         public string Name => "tracing";
-        public string Description => "Distributed tracing using OpenTelemetry and Jaeger";
+        public string Description => "Open Tracing using Jaeger";
         public string Version => "1.0.0";
-
+        
         public void Add(IServiceCollection services, IOptionsProvider optionsProvider)
         {
-            var options = optionsProvider.GetForExtension<TracingOptions>(Name);
-
+            var options = optionsProvider.GetForExtension<TracingOptions>("tracing");
+            services.AddOpenTracing();
+            services.AddSingleton(options);
+            
+            // Use empty tracer if specified in options
             if (options.UseEmptyTracer)
             {
-                services.AddOpenTelemetry();
+                var defaultTracer = DefaultTracer.Create();
+                services.AddSingleton(defaultTracer);
                 return;
             }
 
-          
+            // Handle path exclusions if specified
+            if (options.ExcludePaths is not null)
+            {
+                services.Configure<AspNetCoreDiagnosticOptions>(o =>
+                {
+                    foreach (var path in options.ExcludePaths)
+                    {
+                        o.Hosting.IgnorePatterns.Add(x => x.Request.Path == path);
+                    }
+                });
+            }
+
+            services.AddSingleton<ITracer>(sp =>
+            {
+                var loggerFactory = sp.GetRequiredService<ILoggerFactory>();
+
+                var reporter = new RemoteReporter.Builder()
+                    .WithSender(new UdpSender(options.UdpHost, options.UdpPort, options.MaxPacketSize))
+                    .WithLoggerFactory(loggerFactory)
+                    .Build();
+
+                var sampler = GetSampler(options);
+
+                var tracer = new Tracer.Builder(options.ServiceName)
+                    .WithLoggerFactory(loggerFactory)
+                    .WithReporter(reporter)
+                    .WithSampler(sampler)
+                    .Build();
+
+                GlobalTracer.Register(tracer);
+
+                return tracer;
+            });
         }
 
         public void Use(IApplicationBuilder app, IOptionsProvider optionsProvider)
         {
-            // Middleware to ensure tracing is active
-            var logger = app.ApplicationServices.GetRequiredService<ILogger<TracingExtension>>();
-            logger.LogInformation("Tracing with OpenTelemetry and Jaeger has been configured.");
+            app.UseMiddleware<JaegerHttpMiddleware>();
         }
 
-        private void ConfigureSampler(TracerProviderBuilder builder, TracingOptions options)
+        private static ISampler GetSampler(TracingOptions options)
         {
-            // Use OpenTelemetry samplers instead of Jaeger's samplers
-            switch (options.Sampler?.ToLower())
+            return options.Sampler switch
             {
-                case "const":
-                    // Always sample
-                    builder.SetSampler(new AlwaysOnSampler());
-                    break;
-                case "probabilistic":
-                    // Use the provided sampling rate
-                    builder.SetSampler(new TraceIdRatioBasedSampler(options.SamplingRate));
-                    break;
-
-                default:
-                    // Default sampler: sample based on configuration
-                    builder.SetSampler(new ParentBasedSampler(new TraceIdRatioBasedSampler(options.SamplingRate)));
-                    break;
-            }
+                "const" => new ConstSampler(true),
+                "rate" => new RateLimitingSampler(options.MaxTracesPerSecond),
+                "probabilistic" => new ProbabilisticSampler(options.SamplingRate),
+                _ => new ConstSampler(true),
+            };
         }
     }
 }

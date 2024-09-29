@@ -34,14 +34,14 @@
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
-    
-    <!-- <PackageReference Include="Jaeger" Version="1.0.3" /> -->
+
+    <PackageReference Include="Jaeger" Version="1.0.3" />    
     <PackageReference Include="Nuar" Version="*" />
-    <PackageReference Include="OpenTelemetry" Version="1.9.0" />
-    <PackageReference Include="OpenTelemetry.Exporter.Jaeger" Version="1.5.1" />
-    <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.9.0" />
-    <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.9.0" />
-    <PackageReference Include="OpenTelemetry.Instrumentation.Http" Version="1.9.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.1" />
+    <PackageReference Include="OpenTracing.Contrib.NetCore" Version="0.9.0" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging " Version="8.0.0" />
+
   </ItemGroup>
 
 </Project>
