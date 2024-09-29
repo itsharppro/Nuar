@@ -1,14 +1,19 @@
+<div align="center">
+  
+  # ![Nuar Logo](./docs/logo/Nuar_128.png)
+  
+  ## Nuar API Gateway Framework
 
-# ![Nuar Logo](./docs/logo/Nuar_128.png) Nuar API Gateway Framework
+  [![NuGet](https://img.shields.io/nuget/v/Nuar.svg)](https://www.nuget.org/packages/Nuar)
+  ![.NET 9.0](https://img.shields.io/badge/.NET-9.0-blueviolet?logo=dotnet)
+  [![Build Status](https://github.com/itsharppro/Nuar/actions/workflows/build-test-pack.yml/badge.svg)](https://github.com/yourusername/paralax-framework/actions)
+  [![License](https://img.shields.io/github/license/ITSharpPro/Nuar)](https://github.com/ITSharpPro/Nuar/blob/dev/LICENSE)
+  
+</div>
 
-[![NuGet](https://img.shields.io/nuget/v/Nuar.svg)](https://www.nuget.org/packages/Nuar)
-[![Build Status](https://img.shields.io/github/actions/workflow/status/ITSharpPro/Nuar/build-and-test.yml)](https://github.com/ITSharpPro/Nuar/actions)
-[![License](https://img.shields.io/github/license/ITSharpPro/Nuar)](https://opensource.org/licenses/Apache-2.0)
-[![Code Coverage](https://img.shields.io/codecov/c/github/ITSharpPro/Nuar)](https://codecov.io/gh/ITSharpPro/Nuar)
-[![Last Commit](https://img.shields.io/github/last-commit/ITSharpPro/Nuar)](https://github.com/ITSharpPro/Nuar/commits)
 
 **Nuar** is an advanced, modular, and extensible **API Gateway framework** specifically designed for modern microservices architecture. With a focus on scalability, observability, and performance, Nuar simplifies API management, routing, and communication between services while providing seamless integration with popular tools and technologies.
-
+```
 ================================================================================
    
  .-----------------. .----------------.  .----------------.  .----------------.   
@@ -38,7 +43,7 @@
                             @#~    *Innovative & Fast*    ~#@
 
 ================================================================================
-
+```
 ## Key Features
 
 - **Modular Design**: Use only the components you need by adding or removing features via Nuar extensions.
