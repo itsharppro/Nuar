@@ -3,7 +3,7 @@ using System.Dynamic;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
-using NetJSON;
+using MessagePack;
 using Nuar.Options;
 using Route = Nuar.Configuration.Route;
 
@@ -27,20 +27,11 @@ namespace Nuar.Requests
 
         public bool HasTransformations(string resourceId, Route route)
         {
-            // Check if the resource ID exists
-            if (!string.IsNullOrWhiteSpace(resourceId))
-            {
-                return true;
-            }
+            // Skip payload processing for GET requests or routes without transformation
+            if (route.Method.ToLowerInvariant() == "get")
+                return false;
 
-            // Check if route binds exist
-            if (route.Bind != null && route.Bind.Any())
-            {
-                return true;
-            }
-
-            // Check if there are any transformations
-            if (route.Transform != null && route.Transform.Any())
+            if (!string.IsNullOrWhiteSpace(resourceId) || route.Bind != null && route.Bind.Any() || route.Transform != null && route.Transform.Any())
             {
                 return true;
             }
@@ -51,6 +42,12 @@ namespace Nuar.Requests
 
         public PayloadSchema Transform(string payload, string resourceId, Route route, HttpRequest request, RouteData data)
         {
+            // Skip transformation for GET requests
+            if (route.Method.ToLowerInvariant() == "get")
+            {
+                return null;
+            }
+
             var payloadKey = GetPayloadKey(route);
             var command = _payloads.ContainsKey(payloadKey)
                 ? GetObjectFromPayload(route, payload)
@@ -111,7 +108,7 @@ namespace Nuar.Requests
         private object GetObjectFromPayload(Route route, string content)
         {
             var payloadValue = _payloads[GetPayloadKey(route)].Payload;
-            var request = NetJSON.NetJSON.Deserialize(payloadValue.GetType(), content);
+            var request = MessagePackSerializer.Deserialize(payloadValue.GetType(), System.Text.Encoding.UTF8.GetBytes(content));
 
             var payloadValues = (IDictionary<string, object>)payloadValue;
             var requestValues = (IDictionary<string, object>)request;
@@ -130,8 +127,8 @@ namespace Nuar.Requests
 
         private static object GetObject(string content)
         {
-            // Deserialize directly to an ExpandoObject using NetJSON
-            return NetJSON.NetJSON.Deserialize<ExpandoObject>(content);
+            // Deserialize directly to an ExpandoObject using MessagePack
+            return MessagePackSerializer.Deserialize<ExpandoObject>(System.Text.Encoding.UTF8.GetBytes(content));
         }
 
         private string GetPayloadKey(Route route)

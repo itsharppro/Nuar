@@ -36,6 +36,8 @@
     </None>
 
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
+
+    <PackageReference Include="MessagePack" Version="2.5.172" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
     <PackageReference Include="Microsoft.AspNetCore.Routing" Version="2.2.2" />
