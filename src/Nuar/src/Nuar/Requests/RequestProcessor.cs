@@ -44,8 +44,12 @@ namespace Nuar.Requests
             var route = routeConfig.Route;
             var skipPayload = route.Use == "downstream" && SkipPayloadMethods.Contains(route.DownstreamMethod);
             var routeData = context.GetRouteData();
+
+            // Handle query parameters for GET requests
+            var queryParams = GetQueryString(context.Request);
+
             var hasTransformations = !skipPayload && _payloadTransformer.HasTransformations(resourceId, route);
-            var payload = hasTransformations
+            var payload = hasTransformations && !string.IsNullOrEmpty(context.Request.Body.ToString())
                 ? _payloadTransformer.Transform(await _payloadBuilder.BuildRawAsync(context.Request),
                     resourceId, route, context.Request, routeData)
                 : null;
@@ -61,7 +65,7 @@ namespace Nuar.Requests
                 Route = routeConfig.Route,
                 Context = context,
                 Data = routeData,
-                Downstream = _downstreamBuilder.GetDownstream(routeConfig, context.Request, routeData),
+                Downstream = _downstreamBuilder.GetDownstream(routeConfig, context.Request, routeData) + queryParams,
                 Payload = payload?.Payload,
                 HasPayload = hasTransformations
             };
@@ -101,6 +105,14 @@ namespace Nuar.Requests
             }
 
             return (requestId, resourceId, traceId);
+        }
+
+        private string GetQueryString(HttpRequest request)
+        {
+            if (!request.QueryString.HasValue)
+                return string.Empty;
+
+            return request.QueryString.Value; // Already includes the "?" prefix
         }
     }
 }
