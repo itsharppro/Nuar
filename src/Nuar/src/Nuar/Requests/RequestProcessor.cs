@@ -45,7 +45,6 @@ namespace Nuar.Requests
             var skipPayload = route.Use == "downstream" && SkipPayloadMethods.Contains(route.DownstreamMethod);
             var routeData = context.GetRouteData();
 
-            // Handle query parameters for GET requests
             var queryParams = GetQueryString(context.Request);
 
             var hasTransformations = !skipPayload && _payloadTransformer.HasTransformations(resourceId, route);
