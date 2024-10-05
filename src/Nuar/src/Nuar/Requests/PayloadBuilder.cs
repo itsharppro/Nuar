@@ -9,7 +9,6 @@ namespace Nuar.Requests
     {
         public PayloadBuilder()
         {
-            // Configure NetJSON options globally
             NetJSON.NetJSON.DateFormat = NetJSON.NetJSONDateFormat.ISO;
             NetJSON.NetJSON.SkipDefaultValue = false;
             NetJSON.NetJSON.TimeZoneFormat = NetJSON.NetJSONTimeZoneFormat.Utc;
@@ -17,6 +16,7 @@ namespace Nuar.Requests
 
         public async Task<string> BuildRawAsync(HttpRequest request)
         {
+            var content = string.Empty;
             if (request.Body == null)
             {
                 return string.Empty;
@@ -24,13 +24,13 @@ namespace Nuar.Requests
 
             using (var reader = new StreamReader(request.Body))
             {
-                var content = await reader.ReadToEndAsync();
+                content = await reader.ReadToEndAsync();
 
-                // Temporarily log the incoming payload using Console.WriteLine
                 Console.WriteLine($"Incoming Payload: {content}");
 
-                return content;
+                
             }
+            return content;
         }
 
         public async Task<T> BuildJsonAsync<T>(HttpRequest request) where T : class, new()
@@ -42,7 +42,6 @@ namespace Nuar.Requests
                 return new T();
             }
 
-            // Deserialize payload and log it using Console.WriteLine
             var deserializedPayload = NetJSON.NetJSON.Deserialize<T>(payload);
             Console.WriteLine($"Deserialized Payload: {NetJSON.NetJSON.Serialize(deserializedPayload)}");
 
