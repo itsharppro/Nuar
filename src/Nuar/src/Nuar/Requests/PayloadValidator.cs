@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
+using NetJSON;
 
 namespace Nuar.Requests
 {
@@ -23,7 +23,7 @@ namespace Nuar.Requests
             }
 
             var response = new { errors = executionData.ValidationErrors };
-            var payload = JsonConvert.SerializeObject(response);
+            var payload = NetJSON.NetJSON.Serialize(response); 
             httpResponse.ContentType = "application/json";
             await httpResponse.WriteAsync(payload);
 
@@ -37,7 +37,7 @@ namespace Nuar.Requests
                 return Enumerable.Empty<Error>();
             }
 
-            return await _schemaValidator.ValidateAsync(JsonConvert.SerializeObject(payloadSchema.Payload),
+            return await _schemaValidator.ValidateAsync(NetJSON.NetJSON.Serialize(payloadSchema.Payload),
                 payloadSchema.Schema);
         }
     }

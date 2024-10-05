@@ -33,7 +33,7 @@ namespace Nuar.Routing
             _options = options;
             _requestHandlerManager = requestHandlerManager;
             _logger = logger;
-            _methods = new Dictionary<string, Action<IEndpointRouteBuilder, string, RouteConfig>>
+            _methods = new Dictionary<string, Action<IEndpointRouteBuilder, string, RouteConfig>>(StringComparer.OrdinalIgnoreCase)
             {
                 ["get"] = (builder, path, routeConfig) =>
                     builder.MapGet(path, ctx => Handle(ctx, routeConfig)),

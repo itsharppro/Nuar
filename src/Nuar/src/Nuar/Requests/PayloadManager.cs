@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Dynamic;
 using System.IO;
-using Newtonsoft.Json;
+using NetJSON;
 using Nuar.Options;
 
 namespace Nuar.Requests
@@ -19,17 +19,17 @@ namespace Nuar.Requests
 
         private IDictionary<string, PayloadSchema> LoadPayloads()
         {
-            if (_options.Modules is null)
+            if (_options.Modules == null)
             {
                 return new Dictionary<string, PayloadSchema>();
             }
-            
+
             var payloads = new Dictionary<string, PayloadSchema>();
             var modulesPath = _options.ModulesPath;
             modulesPath = string.IsNullOrWhiteSpace(modulesPath)
                 ? string.Empty
                 : (modulesPath.EndsWith("/") ? modulesPath : $"{modulesPath}/");
-            
+
             foreach (var module in _options.Modules)
             {
                 foreach (var route in module.Value.Routes)
@@ -56,8 +56,9 @@ namespace Nuar.Requests
                     }
 
                     var json = File.ReadAllText(fullJsonPath);
-                    dynamic expandoObject = new ExpandoObject();
-                    JsonConvert.PopulateObject(json, expandoObject);
+
+                    var expandoObject = NetJSON.NetJSON.Deserialize<ExpandoObject>(json);
+
                     var upstream = string.IsNullOrWhiteSpace(route.Upstream) ? string.Empty : route.Upstream;
                     if (!string.IsNullOrWhiteSpace(module.Value.Path))
                     {

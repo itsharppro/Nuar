@@ -2,7 +2,6 @@ using System.Text;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Nuar.Options;
-using Nuar.Requests;
 
 namespace Nuar.Routing
 {

@@ -17,11 +17,7 @@ using Nuar.Requests;
 using Nuar.Routing;
 using Nuar.WebApi;
 using Polly;
-using Microsoft.AspNetCore.Mvc.Formatters;
-using Microsoft.Extensions.Options;
-using Microsoft.AspNetCore.Mvc;
-using System.Text;
-using Microsoft.AspNetCore.Http;
+using Nuar.Formatters;
 
 [assembly: InternalsVisibleTo("Nuar.Tests.Unit")]
 [assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
@@ -68,6 +64,7 @@ namespace Nuar
             return services.AddCoreServices()
                 .ConfigureLogging(configuration)
                 .ConfigureHttpClient(configuration)
+                .ConfigurePayloads(configuration)
                 .AddNuarServices()
                 .AddExtensions(optionsProvider);
         }
@@ -88,7 +85,6 @@ namespace Nuar
             return (options, optionsProvider);
         }
 
-        // Step 2: Add custom JSON formatter using NetJSON
         private static IServiceCollection AddCoreServices(this IServiceCollection services)
         {
             services.AddMvcCore(options =>
@@ -133,9 +129,24 @@ namespace Nuar
             return services;
         }
 
+        private static IServiceCollection ConfigurePayloads(this IServiceCollection services, NuarOptions options)
+        {
+            if (options.PayloadsFolder is null)
+            {
+                options.PayloadsFolder = "Payloads";
+            }
+
+            if (options.PayloadsFolder.EndsWith("/"))
+            {
+                options.PayloadsFolder = options.PayloadsFolder
+                    .Substring(0, options.PayloadsFolder.Length - 1);
+            }
+            
+            return services;
+        }
+
         private static IServiceCollection AddNuarServices(this IServiceCollection services)
         {
-            // Register core Nuar services
             services.AddSingleton<IAuthenticationManager, AuthenticationManager>();
             services.AddSingleton<IAuthorizationManager, AuthorizationManager>();
             services.AddSingleton<IPolicyManager, PolicyManager>();
@@ -250,6 +261,31 @@ namespace Nuar
 
         private static void AddRoutes(this IApplicationBuilder app)
         {
+
+            var options = app.ApplicationServices.GetRequiredService<NuarOptions>();
+            if (options.Modules is null)
+            {
+                return;
+            }
+            
+            foreach (var route in options.Modules.SelectMany(m => m.Value.Routes))
+            {
+                if (route.Methods is {})
+                {
+                    if (route.Methods.Any(m => m.Equals(route.Method, StringComparison.InvariantCultureIgnoreCase)))
+                    {
+                        throw new ArgumentException($"There's already a method {route.Method.ToUpperInvariant()} declared in route 'methods', as well as in 'method'.");
+                    }
+                    
+                    continue;
+                }
+
+                route.Method = (string.IsNullOrWhiteSpace(route.Method) ? "get" : route.Method).ToLowerInvariant();
+                route.DownstreamMethod =
+                    (string.IsNullOrWhiteSpace(route.DownstreamMethod) ? route.Method : route.DownstreamMethod)
+                    .ToLowerInvariant();
+            }
+
             var routeProvider = app.ApplicationServices.GetRequiredService<IRouteProvider>();
             app.UseRouting();
             app.UseEndpoints(routeProvider.Build());
@@ -281,53 +317,6 @@ namespace Nuar
             requestHandlerManager.AddHandler(name, handler);
 
             return app;
-        }
-    }
-
-    // Step 3: Define custom NetJSON input and output formatters
-    public class NetJsonInputFormatter : TextInputFormatter
-    {
-        public NetJsonInputFormatter()
-        {
-            SupportedMediaTypes.Add("application/json");
-            SupportedEncodings.Add(Encoding.UTF8);
-        }
-
-        protected override bool CanReadType(Type type)
-        {
-            return type != null;
-        }
-
-        public override async Task<InputFormatterResult> ReadRequestBodyAsync(InputFormatterContext context, Encoding encoding)
-        {
-            var request = context.HttpContext.Request;
-            using (var reader = new StreamReader(request.Body, encoding))
-            {
-                var body = await reader.ReadToEndAsync();
-                var result = NetJSON.NetJSON.Deserialize(context.ModelType, body);
-                return await InputFormatterResult.SuccessAsync(result);
-            }
-        }
-    }
-
-    public class NetJsonOutputFormatter : TextOutputFormatter
-    {
-        public NetJsonOutputFormatter()
-        {
-            SupportedMediaTypes.Add("application/json");
-            SupportedEncodings.Add(Encoding.UTF8);
-        }
-
-        protected override bool CanWriteType(Type type)
-        {
-            return type != null;
-        }
-
-        public override Task WriteResponseBodyAsync(OutputFormatterWriteContext context, Encoding selectedEncoding)
-        {
-            var response = context.HttpContext.Response;
-            var json = NetJSON.NetJSON.Serialize(context.Object);
-            return response.WriteAsync(json);
         }
     }
 }
