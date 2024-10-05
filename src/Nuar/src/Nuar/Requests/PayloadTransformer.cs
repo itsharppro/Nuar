@@ -3,7 +3,7 @@ using System.Dynamic;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
-using MessagePack;
+using NetJSON;
 using Nuar.Options;
 using Route = Nuar.Configuration.Route;
 
@@ -27,7 +27,6 @@ namespace Nuar.Requests
 
         public bool HasTransformations(string resourceId, Route route)
         {
-            // Skip payload processing for GET requests or routes without transformation
             if (route.Method.ToLowerInvariant() == "get")
                 return false;
 
@@ -55,7 +54,6 @@ namespace Nuar.Requests
 
             var commandValues = (IDictionary<string, object>)command;
 
-            // If resourceId is not null or empty, set it in the commandValues
             if (!string.IsNullOrWhiteSpace(resourceId))
             {
                 var resourceIdProperty = string.IsNullOrWhiteSpace(route.ResourceId?.Property)
@@ -108,13 +106,12 @@ namespace Nuar.Requests
         private object GetObjectFromPayload(Route route, string content)
         {
             var payloadValue = _payloads[GetPayloadKey(route)].Payload;
-            var request = MessagePackSerializer.Deserialize(payloadValue.GetType(), System.Text.Encoding.UTF8.GetBytes(content));
+            var request = NetJSON.NetJSON.Deserialize(payloadValue.GetType(), content);
 
             var payloadValues = (IDictionary<string, object>)payloadValue;
             var requestValues = (IDictionary<string, object>)request;
 
-            // Ensure the payload aligns with the expected structure
-            foreach (var key in requestValues.Keys.ToList()) // Avoid modifying the collection while enumerating
+            foreach (var key in requestValues.Keys.ToList()) 
             {
                 if (!payloadValues.ContainsKey(key))
                 {
@@ -127,8 +124,8 @@ namespace Nuar.Requests
 
         private static object GetObject(string content)
         {
-            // Deserialize directly to an ExpandoObject using MessagePack
-            return MessagePackSerializer.Deserialize<ExpandoObject>(System.Text.Encoding.UTF8.GetBytes(content));
+            // Deserialize content as ExpandoObject using NetJSON
+            return NetJSON.NetJSON.Deserialize<ExpandoObject>(content);
         }
 
         private string GetPayloadKey(Route route)

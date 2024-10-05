@@ -112,7 +112,7 @@ namespace Nuar.Requests
             if (!request.QueryString.HasValue)
                 return string.Empty;
 
-            return request.QueryString.Value; // Already includes the "?" prefix
+            return request.QueryString.Value; 
         }
     }
 }
