@@ -1,19 +1,14 @@
 using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging;
 using NetJSON;
 
 namespace Nuar.Requests
 {
     internal sealed class PayloadBuilder : IPayloadBuilder
     {
-        private readonly ILogger<PayloadBuilder> _logger;
-
-        public PayloadBuilder(ILogger<PayloadBuilder> logger)
+        public PayloadBuilder()
         {
-            _logger = logger;
-
             // Configure NetJSON options globally
             NetJSON.NetJSON.DateFormat = NetJSON.NetJSONDateFormat.ISO;
             NetJSON.NetJSON.SkipDefaultValue = false;
@@ -31,8 +26,8 @@ namespace Nuar.Requests
             {
                 var content = await reader.ReadToEndAsync();
 
-                // Log the incoming payload
-                _logger.LogInformation("Incoming Payload: {Payload}", content);
+                // Temporarily log the incoming payload using Console.WriteLine
+                Console.WriteLine($"Incoming Payload: {content}");
 
                 return content;
             }
@@ -41,16 +36,16 @@ namespace Nuar.Requests
         public async Task<T> BuildJsonAsync<T>(HttpRequest request) where T : class, new()
         {
             var payload = await BuildRawAsync(request);
-            
+
             if (string.IsNullOrWhiteSpace(payload))
             {
                 return new T();
             }
 
-            // Deserialize payload and log it
+            // Deserialize payload and log it using Console.WriteLine
             var deserializedPayload = NetJSON.NetJSON.Deserialize<T>(payload);
-            _logger.LogInformation("Deserialized Payload: {Payload}", NetJSON.NetJSON.Serialize(deserializedPayload));
-            
+            Console.WriteLine($"Deserialized Payload: {NetJSON.NetJSON.Serialize(deserializedPayload)}");
+
             return deserializedPayload;
         }
     }
