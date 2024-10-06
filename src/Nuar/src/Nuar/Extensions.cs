@@ -166,6 +166,7 @@ namespace Nuar
             services.AddSingleton<DownstreamHandler>();
             services.AddSingleton<ReturnValueHandler>();
             services.AddSingleton<WebApiEndpointDefinitions>();
+            
 
             return services;
         }
@@ -176,18 +177,23 @@ namespace Nuar
             var extensionProvider = new ExtensionProvider(options);
             services.AddSingleton<IExtensionProvider>(extensionProvider);
 
+            var logger = services.BuildServiceProvider().GetService<ILogger<ExtensionProvider>>();
+
             foreach (var extension in extensionProvider.GetAll())
             {
-                 if (extension.Options.Enabled == false)
+                if (extension.Options.Enabled == false)
                 {
+                    logger.LogInformation($"Skipping disabled extension: {extension.Extension.Name}");
                     continue;
                 }
 
+                logger.LogInformation($"Loading extension: {extension.Extension.Name}");
                 extension.Extension.Add(services, optionsProvider);
             }
 
             return services;
         }
+
 
         public static IApplicationBuilder UseNuar(this IApplicationBuilder app)
         {
@@ -199,7 +205,7 @@ namespace Nuar
             if (options.Auth?.Enabled == true)
             {
                 logger.LogInformation("Authentication is enabled.");
-                app.UseAuthentication();
+                app.UseAuthorization();
             }
             else
             {
@@ -305,7 +311,11 @@ namespace Nuar
                 }
 
                 extension.Extension.Use(app, optionsProvider);
-                logger.LogInformation($"Enabled extension: '{extension.Extension.Name}'");
+                var orderMessage = extension.Options.Order.HasValue
+                    ? $" [order: {extension.Options.Order}]"
+                    : string.Empty;
+                logger.LogInformation($"Enabled extension: '{extension.Extension.Name}' " +
+                                      $"({extension.Extension.Description}){orderMessage}");
             }
         }
 

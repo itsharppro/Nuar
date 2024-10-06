@@ -44,11 +44,8 @@ namespace Nuar.Requests
             var route = routeConfig.Route;
             var skipPayload = route.Use == "downstream" && SkipPayloadMethods.Contains(route.DownstreamMethod);
             var routeData = context.GetRouteData();
-
-            var queryParams = GetQueryString(context.Request);
-
             var hasTransformations = !skipPayload && _payloadTransformer.HasTransformations(resourceId, route);
-            var payload = hasTransformations && !string.IsNullOrEmpty(context.Request.Body.ToString())
+            var payload = hasTransformations
                 ? _payloadTransformer.Transform(await _payloadBuilder.BuildRawAsync(context.Request),
                     resourceId, route, context.Request, routeData)
                 : null;
@@ -59,12 +56,13 @@ namespace Nuar.Requests
                 ResourceId = resourceId,
                 TraceId = traceId,
                 UserId = context.Request.HttpContext.User?.Identity?.Name,
-                Claims = context.Request.HttpContext.User?.Claims?.ToDictionary(c => c.Type, c => c.Value) ?? EmptyClaims,
+                Claims = context.Request.HttpContext.User?.Claims?.ToDictionary(c => c.Type, c => c.Value) ??
+                         EmptyClaims,
                 ContentType = contentTypeValue,
                 Route = routeConfig.Route,
                 Context = context,
                 Data = routeData,
-                Downstream = _downstreamBuilder.GetDownstream(routeConfig, context.Request, routeData) + queryParams,
+                Downstream = _downstreamBuilder.GetDownstream(routeConfig, context.Request, routeData),
                 Payload = payload?.Payload,
                 HasPayload = hasTransformations
             };
@@ -106,12 +104,5 @@ namespace Nuar.Requests
             return (requestId, resourceId, traceId);
         }
 
-        private string GetQueryString(HttpRequest request)
-        {
-            if (!request.QueryString.HasValue)
-                return string.Empty;
-
-            return request.QueryString.Value; 
-        }
     }
 }
