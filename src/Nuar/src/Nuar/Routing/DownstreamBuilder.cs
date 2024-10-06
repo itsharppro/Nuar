@@ -6,17 +6,17 @@ using Nuar.Options;
 namespace Nuar.Routing
 {
     internal sealed class DownstreamBuilder : IDownstreamBuilder
+{
+    private readonly NuarOptions _options;
+    private readonly IValueProvider _valueProvider;
+
+    public DownstreamBuilder(NuarOptions options, IValueProvider valueProvider)
     {
-        private readonly NuarOptions _options;
-        private readonly IValueProvider _valueProvider;
+        _options = options;
+        _valueProvider = valueProvider;
+    }
 
-        public DownstreamBuilder(NuarOptions options, IValueProvider valueProvider)
-        {
-            _options = options;
-            _valueProvider = valueProvider;
-        }
-
-        public string GetDownstream(RouteConfig routeConfig, HttpRequest request, RouteData data)
+    public string GetDownstream(RouteConfig routeConfig, HttpRequest request, RouteData data)
         {
             if (string.IsNullOrWhiteSpace(routeConfig.Downstream))
             {
@@ -47,7 +47,7 @@ namespace Nuar.Routing
                     stringBuilder.Append($"/{value}");
                     continue;
                 }
-
+                
                 stringBuilder.Replace($"{{{key}}}", value.ToString());
             }
 
@@ -67,4 +67,5 @@ namespace Nuar.Routing
             return stringBuilder.ToString();
         }
     }
+
 }

@@ -99,106 +99,110 @@ namespace Nuar.Handlers
         }
 
         private async Task<HttpResponseMessage> SendRequestAsync(ExecutionData executionData)
+{
+    var httpClient = _httpClientFactory.CreateClient("nuar");
+    var method = (string.IsNullOrWhiteSpace(executionData.Route.DownstreamMethod)
+        ? executionData.Context.Request.Method
+        : executionData.Route.DownstreamMethod).ToLowerInvariant();
+
+    // Use the downstream URL as is (constructed with the query string in the DownstreamBuilder)
+    var downstreamUrl = executionData.Downstream;
+
+    var request = new HttpRequestMessage
+    {
+        RequestUri = new Uri(downstreamUrl)
+    };
+
+    // Forward request headers if specified
+    if (executionData.Route.ForwardRequestHeaders == true || 
+        (_options.ForwardRequestHeaders == true && executionData.Route.ForwardRequestHeaders != false))
+    {
+        foreach (var (key, value) in executionData.Context.Request.Headers)
         {
-            var httpClient = _httpClientFactory.CreateClient("ntrada");
-            var method = (string.IsNullOrWhiteSpace(executionData.Route.DownstreamMethod)
-                ? executionData.Context.Request.Method
-                : executionData.Route.DownstreamMethod).ToLowerInvariant();
-
-            var request = new HttpRequestMessage
-            {
-                RequestUri = new Uri(executionData.Downstream)
-            };
-
-            if (executionData.Route.ForwardRequestHeaders == true ||
-                _options.ForwardRequestHeaders == true && executionData.Route.ForwardRequestHeaders != false)
-            {
-                foreach (var (key, value) in executionData.Context.Request.Headers)
-                {
-                    request.Headers.TryAddWithoutValidation(key, value.ToArray());
-                }
-            }
-
-            var requestHeaders = executionData.Route.RequestHeaders is null ||
-                                 !executionData.Route.RequestHeaders.Any()
-                ? _options.RequestHeaders
-                : executionData.Route.RequestHeaders;
-
-            if (requestHeaders is {})
-            {
-                foreach (var (key, value) in requestHeaders)
-                {
-                    if (!string.IsNullOrWhiteSpace(value))
-                    {
-                        request.Headers.TryAddWithoutValidation(key, value);
-                        continue;
-                    }
-
-                    if (!executionData.Context.Request.Headers.TryGetValue(key, out var values))
-                    {
-                        continue;
-                    }
-
-                    request.Headers.TryAddWithoutValidation(key, values.ToArray());
-                }
-            }
-
-            var includeBody = false;
-            switch (method)
-            {
-                case "get":
-                    request.Method = HttpMethod.Get;
-                    break;
-                case "post":
-                    request.Method = HttpMethod.Post;
-                    includeBody = true;
-                    break;
-                case "put":
-                    request.Method = HttpMethod.Put;
-                    includeBody = true;
-                    break;
-                case "patch":
-                    request.Method = HttpMethod.Patch;
-                    includeBody = true;
-                    break;
-                case "delete":
-                    request.Method = HttpMethod.Delete;
-                    break;
-                case "head":
-                    request.Method = HttpMethod.Head;
-                    break;
-                case "options":
-                    request.Method = HttpMethod.Options;
-                    break;
-                case "trace":
-                    request.Method = HttpMethod.Trace;
-                    break;
-                default:
-                    return null;
-            }
-            
-            if (_httpRequestHooks is {})
-            {
-                foreach (var hook in _httpRequestHooks)
-                {
-                    if (hook is null)
-                    {
-                        continue;
-                    }
-
-                    await hook.InvokeAsync(request, executionData);
-                }
-            }
-            
-            if (!includeBody)
-            {
-                return await httpClient.SendAsync(request);
-            }
-
-            using var content = GetHttpContent(executionData);
-            request.Content = content;
-            return await httpClient.SendAsync(request);
+            request.Headers.TryAddWithoutValidation(key, value.ToArray());
         }
+    }
+
+    // Handle custom request headers
+    var requestHeaders = executionData.Route.RequestHeaders is null || !executionData.Route.RequestHeaders.Any()
+        ? _options.RequestHeaders
+        : executionData.Route.RequestHeaders;
+
+    if (requestHeaders != null)
+    {
+        foreach (var (key, value) in requestHeaders)
+        {
+            if (!string.IsNullOrWhiteSpace(value))
+            {
+                request.Headers.TryAddWithoutValidation(key, value);
+                continue;
+            }
+
+            if (!executionData.Context.Request.Headers.TryGetValue(key, out var values))
+            {
+                continue;
+            }
+
+            request.Headers.TryAddWithoutValidation(key, values.ToArray());
+        }
+    }
+
+    var includeBody = false;
+    switch (method)
+    {
+        case "get":
+            request.Method = HttpMethod.Get;
+            break;
+        case "post":
+            request.Method = HttpMethod.Post;
+            includeBody = true;
+            break;
+        case "put":
+            request.Method = HttpMethod.Put;
+            includeBody = true;
+            break;
+        case "patch":
+            request.Method = HttpMethod.Patch;
+            includeBody = true;
+            break;
+        case "delete":
+            request.Method = HttpMethod.Delete;
+            break;
+        case "head":
+            request.Method = HttpMethod.Head;
+            break;
+        case "options":
+            request.Method = HttpMethod.Options;
+            break;
+        case "trace":
+            request.Method = HttpMethod.Trace;
+            break;
+        default:
+            return null;
+    }
+
+    // Invoke any HTTP request hooks
+    if (_httpRequestHooks != null)
+    {
+        foreach (var hook in _httpRequestHooks)
+        {
+            if (hook == null) continue;
+            await hook.InvokeAsync(request, executionData);
+        }
+    }
+
+    // Include body content if required (e.g., for POST, PUT, PATCH requests)
+    if (!includeBody)
+    {
+        return await httpClient.SendAsync(request);
+    }
+
+    using var content = GetHttpContent(executionData);
+    request.Content = content;
+    return await httpClient.SendAsync(request);
+}
+
+
 
         private static HttpContent GetHttpContent(ExecutionData executionData)
         {
