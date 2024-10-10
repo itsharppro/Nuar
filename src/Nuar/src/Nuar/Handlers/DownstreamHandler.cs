@@ -90,8 +90,15 @@ namespace Nuar.Handlers
             var response = await SendRequestAsync(executionData);
             if (response is null)
             {
-                _logger.LogWarning($"Did not receive HTTP response for: {executionData.Route.Downstream}");
+                _logger.LogWarning($"Downstream service unavailable: {executionData.Route.Downstream}");
 
+                context.Response.StatusCode = StatusCodes.Status503ServiceUnavailable;
+                context.Response.ContentType = ContentTypeApplicationJson;
+                await context.Response.WriteAsync(JsonConvert.SerializeObject(new
+                {
+                    error = "Service Unavailable",
+                    message = $"The downstream service at {executionData.Route.Downstream} is currently unavailable. Please try again later."
+                }));
                 return;
             }
             
@@ -99,108 +106,111 @@ namespace Nuar.Handlers
         }
 
         private async Task<HttpResponseMessage> SendRequestAsync(ExecutionData executionData)
-{
-    var httpClient = _httpClientFactory.CreateClient("nuar");
-    var method = (string.IsNullOrWhiteSpace(executionData.Route.DownstreamMethod)
-        ? executionData.Context.Request.Method
-        : executionData.Route.DownstreamMethod).ToLowerInvariant();
-
-    // Use the downstream URL as is (constructed with the query string in the DownstreamBuilder)
-    var downstreamUrl = executionData.Downstream;
-
-    var request = new HttpRequestMessage
-    {
-        RequestUri = new Uri(downstreamUrl)
-    };
-
-    // Forward request headers if specified
-    if (executionData.Route.ForwardRequestHeaders == true || 
-        (_options.ForwardRequestHeaders == true && executionData.Route.ForwardRequestHeaders != false))
-    {
-        foreach (var (key, value) in executionData.Context.Request.Headers)
         {
-            request.Headers.TryAddWithoutValidation(key, value.ToArray());
-        }
-    }
+            var httpClient = _httpClientFactory.CreateClient("nuar");
+            var method = (string.IsNullOrWhiteSpace(executionData.Route.DownstreamMethod)
+                ? executionData.Context.Request.Method
+                : executionData.Route.DownstreamMethod).ToLowerInvariant();
 
-    // Handle custom request headers
-    var requestHeaders = executionData.Route.RequestHeaders is null || !executionData.Route.RequestHeaders.Any()
-        ? _options.RequestHeaders
-        : executionData.Route.RequestHeaders;
+            var downstreamUrl = executionData.Downstream;
 
-    if (requestHeaders != null)
-    {
-        foreach (var (key, value) in requestHeaders)
-        {
-            if (!string.IsNullOrWhiteSpace(value))
+            var request = new HttpRequestMessage
             {
-                request.Headers.TryAddWithoutValidation(key, value);
-                continue;
+                RequestUri = new Uri(downstreamUrl)
+            };
+
+            if (executionData.Route.ForwardRequestHeaders == true || 
+                (_options.ForwardRequestHeaders == true && executionData.Route.ForwardRequestHeaders != false))
+            {
+                foreach (var (key, value) in executionData.Context.Request.Headers)
+                {
+                    request.Headers.TryAddWithoutValidation(key, value.ToArray());
+                }
             }
 
-            if (!executionData.Context.Request.Headers.TryGetValue(key, out var values))
+            var requestHeaders = executionData.Route.RequestHeaders is null || !executionData.Route.RequestHeaders.Any()
+                ? _options.RequestHeaders
+                : executionData.Route.RequestHeaders;
+
+            if (requestHeaders != null)
             {
-                continue;
+                foreach (var (key, value) in requestHeaders)
+                {
+                    if (!string.IsNullOrWhiteSpace(value))
+                    {
+                        request.Headers.TryAddWithoutValidation(key, value);
+                        continue;
+                    }
+
+                    if (!executionData.Context.Request.Headers.TryGetValue(key, out var values))
+                    {
+                        continue;
+                    }
+
+                    request.Headers.TryAddWithoutValidation(key, values.ToArray());
+                }
             }
 
-            request.Headers.TryAddWithoutValidation(key, values.ToArray());
+            var includeBody = false;
+            switch (method)
+            {
+                case "get":
+                    request.Method = HttpMethod.Get;
+                    break;
+                case "post":
+                    request.Method = HttpMethod.Post;
+                    includeBody = true;
+                    break;
+                case "put":
+                    request.Method = HttpMethod.Put;
+                    includeBody = true;
+                    break;
+                case "patch":
+                    request.Method = HttpMethod.Patch;
+                    includeBody = true;
+                    break;
+                case "delete":
+                    request.Method = HttpMethod.Delete;
+                    break;
+                case "head":
+                    request.Method = HttpMethod.Head;
+                    break;
+                case "options":
+                    request.Method = HttpMethod.Options;
+                    break;
+                case "trace":
+                    request.Method = HttpMethod.Trace;
+                    break;
+                default:
+                    return null;
+            }
+
+            if (_httpRequestHooks != null)
+            {
+                foreach (var hook in _httpRequestHooks)
+                {
+                    if (hook == null) continue;
+                    await hook.InvokeAsync(request, executionData);
+                }
+            }
+
+            try
+            {
+                if (!includeBody)
+                {
+                    return await httpClient.SendAsync(request);
+                }
+
+                using var content = GetHttpContent(executionData);
+                request.Content = content;
+                return await httpClient.SendAsync(request);
+            }
+            catch (HttpRequestException ex)
+            {
+                _logger.LogError(ex, $"Failed to reach downstream service: {executionData.Route.Downstream}");
+                return null;
+            }
         }
-    }
-
-    var includeBody = false;
-    switch (method)
-    {
-        case "get":
-            request.Method = HttpMethod.Get;
-            break;
-        case "post":
-            request.Method = HttpMethod.Post;
-            includeBody = true;
-            break;
-        case "put":
-            request.Method = HttpMethod.Put;
-            includeBody = true;
-            break;
-        case "patch":
-            request.Method = HttpMethod.Patch;
-            includeBody = true;
-            break;
-        case "delete":
-            request.Method = HttpMethod.Delete;
-            break;
-        case "head":
-            request.Method = HttpMethod.Head;
-            break;
-        case "options":
-            request.Method = HttpMethod.Options;
-            break;
-        case "trace":
-            request.Method = HttpMethod.Trace;
-            break;
-        default:
-            return null;
-    }
-
-    // Invoke any HTTP request hooks
-    if (_httpRequestHooks != null)
-    {
-        foreach (var hook in _httpRequestHooks)
-        {
-            if (hook == null) continue;
-            await hook.InvokeAsync(request, executionData);
-        }
-    }
-
-    // Include body content if required (e.g., for POST, PUT, PATCH requests)
-    if (!includeBody)
-    {
-        return await httpClient.SendAsync(request);
-    }
-
-    using var content = GetHttpContent(executionData);
-    request.Content = content;
-    return await httpClient.SendAsync(request);
-}
 
 
 
